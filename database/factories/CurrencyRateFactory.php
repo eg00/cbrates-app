@@ -18,7 +18,7 @@ class CurrencyRateFactory extends Factory
     public function definition(): array
     {
         return [
-            'currency' => $this->faker->randomElement(Currency::cases()),
+            'currency' => $this->faker->unique()->randomElement(Currency::cases()),
             'value' => $this->faker->randomFloat(5, 0.01, 1000),
         ];
     }
