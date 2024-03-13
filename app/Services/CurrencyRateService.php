@@ -6,13 +6,16 @@ namespace App\Services;
 
 use App\Exceptions\OperationFailedException;
 use App\Repositories\CurrencyRateRepository;
+use App\Repositories\CurrencyRateUpdateRepository;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Throwable;
 
 class CurrencyRateService
 {
     public function __construct(
-        protected CurrencyRateRepository $repository,
+        protected CurrencyRateRepository $currencyRateRepository,
+        protected CurrencyRateUpdateRepository $currencyRateUpdateRepository,
         protected RatesClient $client,
     ) {
     }
@@ -23,7 +26,7 @@ class CurrencyRateService
     public function getAll(): Collection
     {
         try {
-            return $this->repository->all();
+            return $this->currencyRateRepository->all();
         } catch (Throwable $e) {
             throw new OperationFailedException($e->getMessage(), 0, $e);
         }
@@ -33,7 +36,25 @@ class CurrencyRateService
     {
         try {
             $rates = $this->client->fetch();
-            $this->repository->update($rates);
+            $this->currencyRateRepository->update($rates);
+        } catch (Throwable $e) {
+            throw new OperationFailedException($e->getMessage(), 0, $e);
+        }
+    }
+
+    public function getLastUpdate(): ?CarbonImmutable
+    {
+        try {
+            return $this->currencyRateUpdateRepository->lastCompleted()?->created_at;
+        } catch (Throwable $e) {
+            throw new OperationFailedException($e->getMessage(), 0, $e);
+        }
+    }
+
+    public function setLastUpdate(bool $isCompleted): void
+    {
+        try {
+            $this->currencyRateUpdateRepository->setLastCompleted($isCompleted);
         } catch (Throwable $e) {
             throw new OperationFailedException($e->getMessage(), 0, $e);
         }
