@@ -35,6 +35,7 @@ enum Currency: int
     case BSD = 44;
     case BTN = 64;
     case BWP = 72;
+    case BYN = 933;
     case BYR = 974;
     case BZD = 84;
     case CAD = 124;
@@ -231,6 +232,7 @@ enum Currency: int
             self::BSD => 2,
             self::BTN => 2,
             self::BWP => 2,
+            self::BYN => 2,
             self::BYR => 0,
             self::BZD => 2,
             self::CAD => 2,
@@ -415,6 +417,7 @@ enum Currency: int
             self::BSD => 'Bahamian dollar',
             self::BTN => 'Bhutanese ngultrum',
             self::BWP => 'Botswana pula',
+            self::BYN => 'Belarusian ruble',
             self::BYR => 'Belarusian ruble',
             self::BZD => 'Belize dollar',
             self::CAD => 'Canadian dollar',

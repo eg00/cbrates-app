@@ -185,4 +185,5 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'cbr_endpoint' => env('CBR_ENDPOINT', 'http://www.cbr.ru/scripts/XML_daily.asp'),
 ];

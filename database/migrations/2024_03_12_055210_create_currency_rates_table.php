@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('currency_rates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('currency')->index();
+            $table->unsignedInteger('currency')->unique();
             $table->string('value');
             $table->timestamps();
         });
